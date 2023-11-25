@@ -34,6 +34,7 @@ const UserRoute = require("./routes/user.routes");
 app.get("/", async (req, res, next) => {
   res.status(200).send({ response: "serverasdasd-тэй амжилттай холбогдлоо." });
 });
+//
 app.get(
   "/check",
   asyncHandler(async (req, res, next) => {
