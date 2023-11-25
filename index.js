@@ -32,7 +32,7 @@ const UserRoute = require("./routes/user.routes");
 //Routes
 
 app.get("/", async (req, res, next) => {
-  res.status(200).send({ response: "server-тэй амжилттай холбогдлоо." });
+  res.status(200).send({ response: "serverasdasd-тэй амжилттай холбогдлоо." });
 });
 app.get(
   "/check",
