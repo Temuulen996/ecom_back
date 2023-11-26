@@ -28,7 +28,7 @@ const User = require("./models/user");
 //Routes
 const ClothesRoute = require("./routes/clothes.routes");
 const UserRoute = require("./routes/user.routes");
-const BasketRoute = require("./routes/basket.routes");
+const CartRoute = require("./routes/cart.routes");
 //Routes
 
 app.get("/", async (req, res, next) => {
@@ -70,7 +70,7 @@ app.get(
 //middleware
 app.use("/api/clothes", ClothesRoute);
 app.use("/api/user", UserRoute);
-app.use("/api/basket", BasketRoute);
+app.use("/api/cart", CartRoute);
 //middleware
 
 //errorHandler
