@@ -20,7 +20,7 @@ exports.create = asyncHandler(async (req, res, next) => {
 });
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email);
+
   if (!email || !password) {
     throw new CustomError(" email nuuts ug damjuuln uu..", 400);
   }

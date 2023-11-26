@@ -28,7 +28,7 @@ const User = require("./models/user");
 //Routes
 const ClothesRoute = require("./routes/clothes.routes");
 const UserRoute = require("./routes/user.routes");
-
+const BasketRoute = require("./routes/basket.routes");
 //Routes
 
 app.get("/", async (req, res, next) => {
@@ -51,7 +51,7 @@ app.get(
       throw new myError("token baihgui baina..", 400);
     }
     const tokenObj = jwt.verify(token, "ECOMMERCE_CLOTHES");
-    console.log(tokenObj);
+
     const user = await User.findById(tokenObj.id);
     if (!user) {
       throw new myError(
@@ -70,13 +70,13 @@ app.get(
 //middleware
 app.use("/api/clothes", ClothesRoute);
 app.use("/api/user", UserRoute);
-
+app.use("/api/basket", BasketRoute);
 //middleware
 
 //errorHandler
 app.use(errorHandler);
 //errorHandler
-const server = app.listen(3000, () => {
+const server = app.listen(3001, () => {
   console.log(`server 3001 port дээр аслаа`);
 });
 process.on("unhandledRejection", (err, promise) => {

@@ -17,7 +17,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
     throw new myError("token baihgui baina..", 400);
   }
   const tokenObj = jwt.verify(token, "ECOMMERCE_CLOTHES");
-  console.log(token);
+
   req.user = await User.findById(tokenObj.id);
 
   next();

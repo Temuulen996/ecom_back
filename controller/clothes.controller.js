@@ -28,7 +28,6 @@ let guid = () => {
   );
 };
 exports.findAll = asyncHandler(async (req, res, next) => {
-  console.log("object");
   const data = await Clothes.find();
   // if (!data) {
   //     throw new myError(`Produc`, 400);
@@ -45,13 +44,12 @@ exports.findById = asyncHandler(async (req, res, next) => {
     throw new CustomError(`iim id tai buteegdehuun baihgui baina.`, 400);
   }
   const imagePath = path.join(__dirname);
-  console.log(imagePath);
+
   res.status(200).send({ success: true, data: data });
 });
 exports.createClothes = asyncHandler(async (req, res, next) => {
   const newData = req.body;
 
-  console.log(newData);
   // let uniqId = guid();
   // newData.image = `photo_${uniqId}${path.parse(image.name).ext}`;
   newData.is_sold = false;
