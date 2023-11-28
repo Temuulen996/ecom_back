@@ -15,6 +15,7 @@ const asyncHandler = require("./middleware/asyncHandler");
 const jwt = require("jsonwebtoken");
 //PARSER
 app.use(express.json({ limit: "500mb" }));
+app.use(express.favicon());
 // app.use(fileupload());
 app.use(bodyParser.json({ limit: "500mb" }));
 app.use(bodyParser.urlencoded({ limit: "500mb", extended: true }));
@@ -48,7 +49,7 @@ app.get(
     const token = req.headers.authorization.split(" ")[1];
 
     if (!token) {
-      throw new myError("token baihgui baina..", 400);
+      throw new myError("token baihgui baina..", 401);
     }
     const tokenObj = jwt.verify(token, "ECOMMERCE_CLOTHES");
 
