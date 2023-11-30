@@ -15,7 +15,7 @@ const asyncHandler = require("./middleware/asyncHandler");
 const jwt = require("jsonwebtoken");
 //PARSER
 app.use(express.json({ limit: "500mb" }));
-app.use(express.favicon());
+// app.use(express.favicon());
 // app.use(fileupload());
 app.use(bodyParser.json({ limit: "500mb" }));
 app.use(bodyParser.urlencoded({ limit: "500mb", extended: true }));
@@ -60,7 +60,7 @@ app.get(
         401
       );
     }
-    res.status(200).send({ success: true, isLogged: true });
+    res.status(200).send({ success: true, isLogged: true, user });
 
     //   const newUser = req.body;
     //   const user = await User.create(newUser);

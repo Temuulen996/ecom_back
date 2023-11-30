@@ -14,6 +14,7 @@ exports.findById = asyncHandler(async (req, res, next) => {
 exports.create = asyncHandler(async (req, res, next) => {
   const newUser = req.body;
 
+  newUser.role = "user";
   const user = await User.create(newUser);
   const token = user.getJWT();
   res.status(200).send({ success: true, user: user, token });
