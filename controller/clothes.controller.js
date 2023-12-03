@@ -67,5 +67,12 @@ exports.createClothes = asyncHandler(async (req, res, next) => {
 exports.deleteClothesById = asyncHandler(async (req, res, next) => {
   const id = req.params.id;
   await Clothes.findByIdAndDelete(id);
-  res, status(200).send({ success: true });
+  res.status(200).send({ success: true });
+});
+exports.findNewClothes = asyncHandler(async (req, res, next) => {
+  const data = await Clothes.find({})
+    .sort({ created_date: -1 }) // -1 for descending order (most recent first)
+    .limit(6);
+  console.log(data);
+  res.status(200).send({ success: true, data: data });
 });
