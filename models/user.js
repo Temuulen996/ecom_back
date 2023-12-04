@@ -31,16 +31,19 @@ const UserSchema = mongoose.Schema({
   resetPasswordExpire: Date,
   createdAt: { type: Date, default: Date.now },
 });
+//save хийх үед password-ийг encrypt хийх trigger
 UserSchema.pre("save", async function () {
   var salt = bcrypt.genSaltSync(10);
   this.password = bcrypt.hash(this.password, salt);
 });
+//хэрэглэгчийн token-ийг авах function
 UserSchema.methods.getJWT = function () {
   const token = jwt.sign({ id: this._id }, "ECOMMERCE_CLOTHES", {
     expiresIn: "30d",
   });
   return token;
 };
+//хэрэглэгчийн password-ийг шалгах function
 UserSchema.methods.checkPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

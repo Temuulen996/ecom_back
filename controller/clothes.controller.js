@@ -1,17 +1,14 @@
 const asyncHandler = require("../middleware/asyncHandler");
-
 const CustomError = require("../utils/errorObject");
-
 const path = require("path");
-
 const Clothes = require("../models/clothes");
+
 let guid = () => {
   let s4 = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
   };
-  //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
   return (
     s4() +
     s4() +
@@ -29,10 +26,6 @@ let guid = () => {
 };
 exports.findAll = asyncHandler(async (req, res, next) => {
   const data = await Clothes.find();
-  // if (!data) {
-  //     throw new myError(`Produc`, 400);
-  //   }
-
   res.status(200).send({ success: true, data: data });
 });
 exports.findById = asyncHandler(async (req, res, next) => {
@@ -47,6 +40,7 @@ exports.findById = asyncHandler(async (req, res, next) => {
 
   res.status(200).send({ success: true, data: data });
 });
+//шинээр хувцасны мэдээлэл db-д оруулах controller. (name ,category, price, description, is_sold, create_date, image)
 exports.createClothes = asyncHandler(async (req, res, next) => {
   const newData = req.body;
 
@@ -63,12 +57,13 @@ exports.createClothes = asyncHandler(async (req, res, next) => {
   const clothes = await Clothes.create(newData);
   res.status(200).send({ success: true, clothes: clothes });
 });
-
+//хувцасны id-г ашиглан db-ээс хувцсыг устгах contoller.
 exports.deleteClothesById = asyncHandler(async (req, res, next) => {
   const id = req.params.id;
   await Clothes.findByIdAndDelete(id);
   res.status(200).send({ success: true });
 });
+//front-ийн home page-дээр харуулах сүүлд нэмэгдсэн хувцаснуудыг авах controller. created_date-ээр нь эрэмбэлэн эхний 6-г авч байна.
 exports.findNewClothes = asyncHandler(async (req, res, next) => {
   const data = await Clothes.find({})
     .sort({ created_date: -1 }) // -1 for descending order (most recent first)

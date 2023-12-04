@@ -1,3 +1,4 @@
+//custom байдлаах error-ийг өөрчлөх өөрийн зохиосон class
 class CustomError extends Error {
   constructor(message, statusCode) {
     super(message);
