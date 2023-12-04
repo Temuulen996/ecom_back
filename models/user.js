@@ -2,23 +2,29 @@ const mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserSchema = mongoose.Schema({
-  fname: { type: String, required: true },
-  lname: { type: String, required: true },
+  fname: {
+    type: String,
+    required: [true, "Хэрэглэгчийн нэр заавал оруулна уу.."],
+  },
+  lname: {
+    type: String,
+    required: [true, "Хэрэглэгчийн овог заавал оруулна уу.."],
+  },
 
   email: {
     type: String,
-    required: true,
+    required: [true, "Хэрэглэгчийн Email заавал оруулна уу.."],
     unique: true,
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "email hayg buruu baina.",
+      "Email хаяг буруу байна.",
     ],
   },
   role: { type: String, required: true, enum: ["user"] },
   password: {
     type: String,
     minlength: 4,
-    required: [true, "nuuts ugee oruulna uu"],
+    required: [true, "Хэрэглэгчийн нууц үг заавал оруулна уу.."],
     select: false,
   },
   resetPasswordToken: String,
