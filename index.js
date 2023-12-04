@@ -13,29 +13,33 @@ const errorHandler = require("./middleware/errorHandler");
 var bodyParser = require("body-parser");
 const asyncHandler = require("./middleware/asyncHandler");
 const jwt = require("jsonwebtoken");
+//
 //PARSER
 app.use(express.json({ limit: "500mb" }));
-// app.use(express.favicon());
 // app.use(fileupload());
 app.use(bodyParser.json({ limit: "500mb" }));
 app.use(bodyParser.urlencoded({ limit: "500mb", extended: true }));
-
 //Parser
-
+//
+//
 //db connect
 connectDb();
 //db connect
+//
 const User = require("./models/user");
+//
 //Routes
 const ClothesRoute = require("./routes/clothes.routes");
 const UserRoute = require("./routes/user.routes");
 const CartRoute = require("./routes/cart.routes");
 //Routes
+//
 
 app.get("/", async (req, res, next) => {
   res.status(200).send({ response: "serverasdasd-тэй амжилттай холбогдлоо." });
 });
 //
+//authoriation хийх controll. энд хэрэглэгчийн token-ийг front-оос хүлээн авч хэрвээ token зөв байвал user-ийн мэдээллийг илгээнэ.
 app.get(
   "/check",
   asyncHandler(async (req, res, next) => {
@@ -61,28 +65,29 @@ app.get(
       );
     }
     res.status(200).send({ success: true, isLogged: true, user });
-
-    //   const newUser = req.body;
-    //   const user = await User.create(newUser);
-    //   const token = user.getJWT();
-    //   res.status(200).send({ success: true, user: user, token });
   })
 );
+//
 //middleware
 app.use("/api/clothes", ClothesRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/cart", CartRoute);
 //middleware
-
+//
+//
+//mongoose дээр яг нарийн баригдах боломжгүй алдааг энл custom handler ашиглан барьж авна.
 //errorHandler
 app.use(errorHandler);
 //errorHandler
+//
 const server = app.listen(3001, () => {
   console.log(`server 3001 port дээр аслаа`);
 });
+//server-т гарч буй нарийн алдааг энд барьж авна.
 process.on("unhandledRejection", (err, promise) => {
   console.log(`алдаа гарлаа : ${err.message}`.red.underline.red.bold);
   server.close(() => {
     process.exit(1);
   });
 });
+//

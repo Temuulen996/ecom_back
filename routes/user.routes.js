@@ -8,6 +8,7 @@ const {
 } = require("../controller/user.controller");
 
 const router = express.Router();
+//API-уудыг protect middleware-ээр хамгаалсан байдал
 router.route("/").get(findAll).post(create);
 router.route("/:id").get(findById);
 router.route("/login").post(login);

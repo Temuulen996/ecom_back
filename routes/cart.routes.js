@@ -10,6 +10,7 @@ const {
 } = require("../controller/cart.contorller");
 
 const router = express.Router();
+//API-уудыг protect middleware-ээр хамгаалсан байдал
 router.route("/").get(findAll).post(protect, create);
 router.route("/owner").get(protect, findByOwnerId);
 router.route("/in_cart/:id").get(protect, inCart);
