@@ -57,6 +57,29 @@ exports.createClothes = asyncHandler(async (req, res, next) => {
   const clothes = await Clothes.create(newData);
   res.status(200).send({ success: true, clothes: clothes });
 });
+exports.filterClothes = asyncHandler(async (req, res, next) => {
+  let query = {};
+  const byString = req.query.by_string;
+  const priceFrom = parseFloat(req.query.price_from);
+  const priceTo = parseFloat(req.query.price_to);
+
+  if (byString) {
+    query.name = new RegExp(byString, "i"); // Case-insensitive match
+  }
+  if (priceFrom || priceTo) {
+    query.price = {};
+    if (priceFrom) query.price.$gte = priceFrom;
+    if (priceTo) query.price.$lte = priceTo;
+  }
+  const clothes = await Clothes.find(query);
+  res.status(200).send({ success: true, data: clothes });
+});
+exports.deleteClothesByOwnerId = asyncHandler(async (req, res, next) => {
+  const id = req.params.id;
+  const data = await Cart.deleteMany({ _id: id }).populate("User");
+
+  res.status(200).send({ success: true, data: data });
+});
 //хувцасны id-г ашиглан db-ээс хувцсыг устгах contoller.
 exports.deleteClothesById = asyncHandler(async (req, res, next) => {
   const id = req.params.id;

@@ -33,8 +33,9 @@ const UserSchema = mongoose.Schema({
 });
 //save хийх үед password-ийг encrypt хийх trigger
 UserSchema.pre("save", async function () {
-  var salt = bcrypt.genSaltSync(10);
-  this.password = bcrypt.hash(this.password, salt);
+  var salt = await bcrypt.genSaltSync(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  console.log(this.password);
 });
 //хэрэглэгчийн token-ийг авах function
 UserSchema.methods.getJWT = function () {

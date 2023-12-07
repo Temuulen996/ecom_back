@@ -39,7 +39,7 @@ app.get("/", async (req, res, next) => {
   res.status(200).send({ response: "serverasdasd-тэй амжилттай холбогдлоо." });
 });
 //
-//authoriation хийх controll. энд хэрэглэгчийн token-ийг front-оос хүлээн авч хэрвээ token зөв байвал user-ийн мэдээллийг илгээнэ.
+//authorization хийх control. энд хэрэглэгчийн token-ийг front-оос хүлээн авч хэрвээ token зөв байвал user-ийн мэдээллийг илгээнэ.
 app.get(
   "/check",
   asyncHandler(async (req, res, next) => {
